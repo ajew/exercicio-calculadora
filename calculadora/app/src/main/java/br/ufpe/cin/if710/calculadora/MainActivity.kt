@@ -2,12 +2,70 @@ package br.ufpe.cin.if710.calculadora
 
 import android.app.Activity
 import android.os.Bundle
+import android.text.Editable
+import android.widget.Toast
+import kotlinx.android.synthetic.main.activity_main.*
 
 class MainActivity : Activity() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        //val mathExpression = findViewById<EditText>(R.id.text_calc)
+        /*val button = findViewById<Button>(R.id.btn_0)
+        button.setOnClickListener {
+            // your code to perform when the user clicks on the button
+            mathExpression.append("0")
+            Toast.makeText(this@MainActivity, "You clicked me.", Toast.LENGTH_SHORT).show()
+        }*/
+
+        btn_0.setOnClickListener{ text_calc.text = text_calc.text.append('0') }
+        btn_1.setOnClickListener{ text_calc.text = text_calc.text.append('1') }
+        btn_2.setOnClickListener{ text_calc.text = text_calc.text.append('2') }
+        btn_3.setOnClickListener{ text_calc.text = text_calc.text.append('3') }
+        btn_4.setOnClickListener{ text_calc.text = text_calc.text.append('4') }
+        btn_5.setOnClickListener{ text_calc.text = text_calc.text.append('5') }
+        btn_6.setOnClickListener{ text_calc.text = text_calc.text.append('6') }
+        btn_7.setOnClickListener{ text_calc.text = text_calc.text.append('7') }
+        btn_8.setOnClickListener{ text_calc.text = text_calc.text.append('8') }
+        btn_9.setOnClickListener{ text_calc.text = text_calc.text.append('9') }
+        btn_Clear.setOnClickListener{ text_calc.text = text_calc.text.dropLast(text_calc.text.length) as Editable? }
+        btn_Add.setOnClickListener{ text_calc.text = text_calc.text.append('+')}
+        btn_Subtract.setOnClickListener{ text_calc.text = text_calc.text.append('-')}
+        btn_Multiply.setOnClickListener{ text_calc.text = text_calc.text.append('*')}
+        btn_Divide.setOnClickListener{ text_calc.text = text_calc.text.append('/')}
+        btn_Dot.setOnClickListener{ text_calc.text = text_calc.text.append('.')}
+        btn_Power.setOnClickListener{ text_calc.text = text_calc.text.append('^')}
+        btn_RParen.setOnClickListener{ text_calc.text = text_calc.text.append(')')}
+        btn_LParen.setOnClickListener{ text_calc.text = text_calc.text.append('(')}
+        btn_Equal.setOnClickListener{
+            try {
+                val valor:String=""+eval(text_calc.text.toString())
+                text_info.text = valor
+            } catch(e: RuntimeException){
+                Toast.makeText(this, e.message, Toast.LENGTH_SHORT).show()
+            }
+        }
+
+    }
+
+    override fun onSaveInstanceState(outState: Bundle?) {
+        super.onSaveInstanceState(outState)
+        if (outState != null) {
+            outState.putString("calc", text_calc.text.toString())
+            outState.putString("info", text_info.text as String?)
+        }
+    }
+
+    override fun onRestoreInstanceState(savedInstanceState: Bundle?) {
+        super.onRestoreInstanceState(savedInstanceState)
+        if(savedInstanceState!=null){
+            val tex_info:String=savedInstanceState.getString("info")
+            val tex_calc:String=savedInstanceState.getString("calc")
+            text_info.setText(tex_info)
+            text_calc.setText(tex_calc)
+        }
+
     }
 
     //Como usar a função:
